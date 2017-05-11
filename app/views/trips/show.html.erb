@@ -1,38 +1,49 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @trip.depart_city %> -> <%= @trip.arrival_city%></h1>
 
-<p>
-  <strong>Depart city:</strong>
-  <%= @trip.depart_city %>
-</p>
-
-<p>
-  <strong>Depart time:</strong>
-  <%= @trip.depart_time %>
-</p>
-
-<p>
-  <strong>Arrival city:</strong>
-  <%= @trip.arrival_city %>
-</p>
-
-<p>
-  <strong>Arrival time:</strong>
-  <%= @trip.arrival_time %>
-</p>
-
-<p>
-  <strong>Free seat:</strong>
-  <%= @trip.free_seat %>
-</p>
-
-<p>
-  <% if user_signed_in? %>
-    <%= form_for(current_user.tickets.build(trip_id: @trip.id)) do |f| %>
-      <div><%= f.hidden_field :trip_id %></div>
-      <div class="actions"><%= f.submit "Buy" %></div>
-    <% end %>
-  <% end %>
-</p>
+<div class="row">
+  <div class="col-md-4">
+   <div class="table-responsive">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><strong>Depart city:</strong></td>
+            <td> <%= @trip.depart_city %></td>
+          </tr>
+          <tr>
+            <td><strong>Depart time:</strong></td>
+            <td><%= @trip.depart_time %></td>
+          </tr>
+          <tr>
+            <td><strong>Arrival city:</strong></td>
+            <td><%= @trip.arrival_city %></td>
+          </tr>
+          <tr>
+            <td><strong>Arrival time:</strong></td>
+            <td> <%= @trip.arrival_time %></td>
+          </tr>
+          <tr>
+            <td><strong>Free seats:</strong></td>
+            <td> <%= @trip.free_seat %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <p>
+      <% if user_signed_in? %>
+        <%= @trip.free_seat.times do %>      
+          <%= form_for(current_user.tickets.build(trip_id: @trip.id)) do |f| %>
+            <div><%= f.hidden_field :trip_id %></div>
+            <div class="actions"><%= f.submit "Buy" %></div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <h4>Please <%= link_to "Log_in", sign_in_path%> to see free seats</h4>
+      <% end %>
+    </p>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_trip_path(@trip) %> |
 <%= link_to 'Back', trips_path %>
