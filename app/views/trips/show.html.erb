@@ -29,19 +29,17 @@
       </table>
     </div>
   </div>
-  <div class="col-md-8">
-    <p>
-      <% if user_signed_in? %>
-        <%= @trip.free_seat.times do %>      
-          <%= form_for(current_user.tickets.build(trip_id: @trip.id)) do |f| %>
-            <div><%= f.hidden_field :trip_id %></div>
-            <div class="actions"><%= f.submit "Buy" %></div>
-          <% end %>
+  <div class="col-lg-8 col-md-8">
+    <% if user_signed_in? %>
+      <% (1..@seat_count).each do |s| %>
+      <div class="col-lg-1">
+        <%= form_for(current_user.tickets.build(trip_id: @trip.id)) do |f| %>
+          <div><%= f.hidden_field :trip_id %></div>
+          <button class="actions btn btn-primary" onclick="myFunction()" ><%= s %></button>
         <% end %>
-      <% else %>
-        <h4>Please <%= link_to "Log_in", sign_in_path%> to see free seats</h4>
+      </div>
       <% end %>
-    </p>
+    <% end %>
   </div>
 </div>
 
