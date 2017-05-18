@@ -28,3 +28,8 @@ end
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'faker', '~> 1.7', '>= 1.7.3'
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
