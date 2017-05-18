@@ -8,10 +8,6 @@ class User < ApplicationRecord
   has_many :ordered_trips, through: :tickets, source: :trip_id
 
 
-  def buyed?(trip)
-  	tickets.find_by(trip_id: trip.id)
-  end
-
   def buy!(trip)
   	tickets.create!(trip_id: trip.id)
   end
