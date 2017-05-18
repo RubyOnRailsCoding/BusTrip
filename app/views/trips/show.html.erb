@@ -11,7 +11,7 @@
           </tr>
           <tr>
             <td><strong>Depart time:</strong></td>
-            <td><%= @trip.depart_time %></td>
+            <td><%= @trip.depart_time.strftime("%m/%d/%Y %I:%M") %></td>
           </tr>
           <tr>
             <td><strong>Arrival city:</strong></td>
@@ -19,7 +19,7 @@
           </tr>
           <tr>
             <td><strong>Arrival time:</strong></td>
-            <td> <%= @trip.arrival_time %></td>
+            <td> <%= @trip.arrival_time.strftime("%m/%d/%Y %I:%M") %></td>
           </tr>
           <tr>
             <td><strong>Free seats:</strong></td>
@@ -35,13 +35,17 @@
       <div class="col-lg-1">
         <%= form_for(current_user.tickets.build(trip_id: @trip.id)) do |f| %>
           <div><%= f.hidden_field :trip_id %></div>
-          <button class="actions btn btn-primary" onclick="myFunction()" ><%= s %></button>
+          <button class="actions btn btn-primary btnSearch"><%= s %></button>
         <% end %>
       </div>
       <% end %>
+    <% else %>
+      <h3 id="sign">Please <%= link_to "Sign in", sign_in_path, class: "btn btn-primary btn-lg my-btn" %> to see free seats.</h3>
     <% end %>
   </div>
 </div>
 
-<%= link_to 'Edit', edit_trip_path(@trip) %> |
-<%= link_to 'Back', trips_path %>
+<% if user_signed_in?  && current_user.admin? %>
+  <%= link_to 'Edit', edit_trip_path(@trip), class: "btn btn-warning btn-xs my-btn" %>
+<% end %>
+<%= link_to 'Back', trips_path, class: "btn btn-warning btn-xs my-btn" %>

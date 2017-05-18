@@ -1,35 +1,40 @@
 <h1>Trips</h1>
 
-<div class="row">
-  <div class="col-md-12.col-sm-4">
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Depart city</th>
-            <th>Depart time</th>
-            <th>Arrival city</th>
-            <th>Arrival time</th>
-            <th>Free seat</th>
-            <th colspan="1"></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @trips.each do |trip| %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12.col-sm-4">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
             <tr>
-              <td><%= trip.depart_city %></td>
-              <td><%= trip.depart_time %></td>
-              <td><%= trip.arrival_city %></td>
-              <td><%= trip.arrival_time %></td>
-              <td><%= trip.free_seat %></td>
-              <td><%= link_to 'Show', trip %></td>
+              <th>From</th>
+              <th>Depart</th>
+              <th>To</th>
+              <th>Arrival</th>
+              <th>Free seat</th>
+              <th colspan="1"></th>
             </tr>
-          <% end %>
-        </tbody>
+          </thead>
+
+          <tbody>
+            <% @trips.each do |trip| %>
+              <tr>
+                <td><%= trip.depart_city %></td>
+                <td><%= trip.depart_time.strftime("%m/%d/%Y %I:%M") %></td>
+                <td><%= trip.arrival_city %></td>
+                <td><%= trip.arrival_time.strftime("%m/%d/%Y %I:%M") %></td>
+                <td><%= trip.free_seat %></td>
+                <td><%= link_to 'Choose', trip, class: "btn-success btn-success btn-xs my-btn" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
+    <% if user_signed_in?  && current_user.admin? %>
+      <%= link_to 'New Trip', new_trip_path, class: "btn btn-primary" %>
+    <% end %>
   </div>
 </div>
 
-<%= link_to 'New Trip', new_trip_path %>
+

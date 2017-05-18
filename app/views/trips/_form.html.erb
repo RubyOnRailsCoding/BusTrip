@@ -16,9 +16,9 @@
     <%= f.text_field :depart_city %>
   </div>
 
-  <div class="field">
+  <div class="field datetimepicker">
     <%= f.label :depart_time %>
-    <%= f.datetime_select :depart_time %>
+    <%= f.datetime_select :depart_time, class: 'datetimepicker' %>
   </div>
 
   <div class="field">
@@ -37,6 +37,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit  %>
   </div>
 <% end %>
